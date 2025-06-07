@@ -5,3 +5,20 @@ _pycache_/
 .secrets/
 .streamlit/secrets.toml
 venv/
+_pycache_/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env
+*.env
+
+# Secret config
+.secrets/
+.streamlit/secrets.toml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
