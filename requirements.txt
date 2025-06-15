@@ -1,5 +1,5 @@
-streamlit
+streamlit==1.32.0
 gspread
 oauth2client
-pandas
-plotly
+pandas==2.2.1
+plotly==5.19.0

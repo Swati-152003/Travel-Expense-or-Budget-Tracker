@@ -1,8 +1,69 @@
-# 🧾 Travel Expense Tracker
+# Travel Expense Tracker
 
-A lightweight, user-friendly web app to *record, analyze, and visualize travel expenses* — built using Python, Streamlit, and Google Sheets.
+A Streamlit-based web application for tracking personal and group travel expenses.
 
-![App Screenshot](https://via.placeholder.com/900x400?text=Insert+Screenshot+Here)
+## Features
+
+- User authentication (login/signup)
+- Personal expense tracking
+- Group expense management
+- Expense analytics and visualization
+- Group creation and management
+- Group expense splitting and balance tracking
+
+## Setup
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd travel-expense-tracker
+```
+
+2. Create a virtual environment and activate it:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Run the application:
+```bash
+streamlit run main.py
+```
+
+## Usage
+
+1. Open your web browser and navigate to `http://localhost:8501`
+2. Create a new account or log in with existing credentials
+3. Start tracking your expenses!
+
+### Personal Expenses
+
+- Add new expenses with date, amount, category, and description
+- View expense analytics including total spent, monthly breakdowns, and category distribution
+- Track your spending patterns over time
+
+### Group Expenses
+
+- Create new groups and invite members
+- Add group expenses and track shared costs
+- View group balances and settle debts
+- Monitor group spending patterns
+
+## Data Storage
+
+The application uses JSON files for data storage:
+- `users.json`: User credentials
+- `expenses.json`: Expense records
+- `groups.json`: Group information and memberships
+
+## Contributing
+
+Feel free to submit issues and enhancement requests!
 
 ---
 
