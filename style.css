@@ -1,0 +1,118 @@
+/* Dashboard Boxes Styling */
+.dashboard-container {
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.metric-box {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    height: 100%;
+}
+
+.metric-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.metric-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2a3439;
+    margin-bottom: 10px;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #355E3B;
+    margin: 10px 0;
+}
+
+.metric-subtitle {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.expense-details {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.expense-detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.expense-detail-label {
+    font-weight: 600;
+    color: #2a3439;
+}
+
+/* Chart container styling */
+.chart-container {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation for loading */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.metric-box {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .metric-box {
+        margin-bottom: 20px;
+    }
+    
+    .metric-value {
+        font-size: 1.5rem;
+    }
+}
+
+/* Login Container */
+.login-container {
+    background: linear-gradient(135deg, #E8ADAA 0%, #F5D0C5 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+/* Table Styles */
+.expense-table {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.expense-table .stDataFrame {
+    text-align: center;
+}
+
+.expense-table .stDataFrame td {
+    text-align: center !important;
+}
+
+.expense-table .stDataFrame th {
+    text-align: center !important;
+} 

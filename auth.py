@@ -284,7 +284,7 @@ def login_page():
             html, body, .main {
                 height: 100%;
                 font-family: 'Quicksand', sans-serif;
-                background: linear-gradient(135deg, #f8ffae 0%, #43cea2 100%);
+                background: #F5F5DC;
             }
             .tracker-heading {
                 display: flex;
@@ -299,7 +299,7 @@ def login_page():
                 height: 38px;
                 object-fit: cover;
                 border-radius: 8px;
-                box-shadow: 0 2px 8px 0 rgba(67,206,162,0.15);
+                box-shadow: 0 2px 8px 0 rgba(111, 143, 175, 0.15);
                 background: #fff;
             }
             .tracker-title {
@@ -311,24 +311,72 @@ def login_page():
             }
             .stTextInput > div > input {
                 border-radius: 10px;
-                background: #f0f9f7;
-                border: 1.5px solid #43cea2;
+                background: #ffffff;
+                border: 3px solid #6F8FAF;
                 font-size: 1.1rem;
                 padding: 0.5rem 0.75rem;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 4px rgba(111, 143, 175, 0.1);
+                outline: none;
             }
             .stTextInput > div > input:focus {
-                border: 2px solid #185a9d;
-                background: #e6f7ff;
+                border: 3px solid #4682B4;
+                background: #ffffff;
+                box-shadow: 0 4px 8px rgba(111, 143, 175, 0.2);
+                transform: translateY(-2px);
+            }
+            .stTextInput > div > input:hover {
+                border: 3px solid #4682B4;
+                box-shadow: 0 4px 8px rgba(111, 143, 175, 0.2);
+            }
+            .stTextInput > div > div {
+                border: 2px solid #6F8FAF;
+                border-radius: 10px;
+                padding: 2px;
+                background: #ffffff;
+                transition: all 0.3s ease;
+            }
+            .stTextInput > div > div:hover {
+                border: 2px solid #4682B4;
+                box-shadow: 0 4px 8px rgba(111, 143, 175, 0.2);
+            }
+            .stTextInput > div > div:focus-within {
+                border: 2px solid #4682B4;
+                box-shadow: 0 4px 8px rgba(111, 143, 175, 0.2);
             }
             .stTextArea textarea {
                 border-radius: 10px;
-                background: #f0f9f7;
-                border: 1.5px solid #43cea2;
+                background: #ffffff;
+                border: 3px solid #6F8FAF;
                 font-size: 1.1rem;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 4px rgba(111, 143, 175, 0.1);
+                outline: none;
             }
             .stTextArea textarea:focus {
-                border: 2px solid #185a9d;
-                background: #e6f7ff;
+                border: 3px solid #4682B4;
+                background: #ffffff;
+                box-shadow: 0 4px 8px rgba(111, 143, 175, 0.2);
+                transform: translateY(-2px);
+            }
+            .stTextArea textarea:hover {
+                border: 3px solid #4682B4;
+                box-shadow: 0 4px 8px rgba(111, 143, 175, 0.2);
+            }
+            .stTextArea > div > div {
+                border: 2px solid #6F8FAF;
+                border-radius: 10px;
+                padding: 2px;
+                background: #ffffff;
+                transition: all 0.3s ease;
+            }
+            .stTextArea > div > div:hover {
+                border: 2px solid #4682B4;
+                box-shadow: 0 4px 8px rgba(111, 143, 175, 0.2);
+            }
+            .stTextArea > div > div:focus-within {
+                border: 2px solid #4682B4;
+                box-shadow: 0 4px 8px rgba(111, 143, 175, 0.2);
             }
             .st-bb, .st-bc {
                 border-radius: 10px !important;
@@ -351,35 +399,51 @@ def login_page():
                 width: 40%;
                 min-width: 80px;
                 max-width: 120px;
-                background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+                background: linear-gradient(90deg, #6F8FAF 0%, #4682B4 100%);
                 color: white;
-                border: none;
+                border: 3px solid #1E3A8A;
                 padding: 0.25rem 0.5rem;
                 border-radius: 10px;
                 font-weight: 700;
                 font-size: 0.95rem;
                 margin-bottom: 0.5rem;
-                box-shadow: 0 2px 8px 0 rgba(67,206,162,0.10);
-                transition: background 0.3s, transform 0.2s;
+                box-shadow: 0 2px 8px 0 rgba(111, 143, 175, 0.10);
+                transition: all 0.3s ease;
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
+                position: relative;
+                overflow: hidden;
             }
             div[data-testid=\"stButton\"] > button:hover {
-                background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
+                background: linear-gradient(90deg, #4682B4 0%, #6F8FAF 100%);
                 color: #fff;
-                transform: translateY(-2px) scale(1.03);
+                transform: translateY(-3px) scale(1.05);
+                border-color: #1E3A8A;
+                box-shadow: 0 6px 15px rgba(30, 58, 138, 0.3);
+            }
+            div[data-testid=\"stButton\"] > button:active {
+                transform: translateY(-1px) scale(0.98);
+                box-shadow: 0 2px 8px rgba(30, 58, 138, 0.2);
             }
             div[data-testid=\"stButton\"] > button[data-testid=\"baseButton-secondary\"] {
-                background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
-                color: #222;
+                background: linear-gradient(90deg, #6F8FAF 0%, #4682B4 100%);
+                color: white;
+                border: 3px solid #1E3A8A;
             }
             div[data-testid=\"stButton\"] > button[data-testid=\"baseButton-secondary\"]:hover {
-                background: linear-gradient(90deg, #ffd200 0%, #f7971e 100%);
-                color: #222;
+                background: linear-gradient(90deg, #4682B4 0%, #6F8FAF 100%);
+                color: white;
+                border-color: #1E3A8A;
+                box-shadow: 0 6px 15px rgba(30, 58, 138, 0.3);
+                transform: translateY(-3px) scale(1.05);
+            }
+            div[data-testid=\"stButton\"] > button[data-testid=\"baseButton-secondary\"]:active {
+                transform: translateY(-1px) scale(0.98);
+                box-shadow: 0 2px 8px rgba(30, 58, 138, 0.2);
             }
             .stSubheader, .stMarkdown h2, .stMarkdown h3 {
-                color: #185a9d;
+                color: #4682B4;
                 font-weight: 700;
             }
             </style>
@@ -392,7 +456,7 @@ def login_page():
                 <span class="tracker-title">Travel Expense Tracker</span>
             </div>
         ''', unsafe_allow_html=True)
-        
+
         if not st.session_state.show_signup:
             # Login form
             st.subheader("Login")
@@ -407,6 +471,7 @@ def login_page():
             with col2:
                 signup_clicked = st.button("Sign Up", type="secondary", key="signup_btn")
             st.markdown('</div>', unsafe_allow_html=True)
+            
             if login_clicked:
                 if authenticate_user(username, password):
                     st.session_state.user_logged_in = True
@@ -417,7 +482,7 @@ def login_page():
             if signup_clicked:
                 st.session_state.show_signup = True
                 st.rerun()
-        
+
         else:
             # Signup form
             st.subheader("Sign Up")
@@ -442,6 +507,7 @@ def login_page():
             with col2:
                 back_clicked = st.button("Back to Login", type="secondary", key="back_btn")
             st.markdown('</div>', unsafe_allow_html=True)
+            
             if create_clicked:
                 success, message = create_user(new_username, new_password, confirm_password)
                 if success:
@@ -453,7 +519,7 @@ def login_page():
             if back_clicked:
                 st.session_state.show_signup = False
                 st.rerun()
-    
+
     return st.session_state.user_logged_in, st.session_state.username
 
 def logout():

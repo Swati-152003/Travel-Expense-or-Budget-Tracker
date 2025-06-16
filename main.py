@@ -11,6 +11,7 @@ from auth import (
 import datetime
 import plotly.express as px
 import plotly.graph_objects as go
+from dashboard_components import render_dashboard
 
 # Set page config with custom theme
 st.set_page_config(
@@ -26,31 +27,23 @@ st.markdown("""
     .main {
         padding: 2rem;
         border-radius: 10px;
-        background-image: url('https://img.freepik.com/free-vector/travel-time-typography-design_1308-99359.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
     }
     .login-container {
-        background-image: url('https://img.freepik.com/free-photo/travel-concept-with-landmarks_23-2149153256.jpg');
-        background-size: cover;
-        background-position: center;
         padding: 3rem;
         border-radius: 15px;
         margin: 2rem auto;
         max-width: 500px;
+        background-color: #f8f9fa;
     }
     .login-box {
-        background-color: rgba(255, 255, 255, 0.95);
+        background-color: #ffffff;
         padding: 2rem;
         border-radius: 10px;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid #e0e0e0;
     }
     .stForm {
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: #ffffff;
         padding: 2rem;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -58,13 +51,13 @@ st.markdown("""
     .st-emotion-cache-1y4p8pa {
         padding: 2rem;
         border-radius: 10px;
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: #ffffff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
     .analytics-section {
         margin-top: 2rem;
         margin-bottom: 2rem;
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: #ffffff;
         border-radius: 15px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
@@ -93,7 +86,7 @@ st.markdown("""
     .metric-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        border-color: #008080;
+        border-color: #6F8FAF;
     }
     .metric-header {
         background-color: #f0f8ff;
@@ -124,7 +117,7 @@ st.markdown("""
     }
     .metric-title {
         font-size: 1.1rem;
-        color: #008080;
+        color: #6F8FAF;
         font-weight: 700;
         margin: 0;
     }
@@ -145,7 +138,7 @@ st.markdown("""
     .metric-value {
         font-size: 1.5rem;
         font-weight: 700;
-        color: #008080;
+        color: #6F8FAF;
         margin: 0;
         word-break: break-word;
     }
@@ -153,21 +146,21 @@ st.markdown("""
         font-weight: 700 !important;
     }
     .stButton>button {
-        background-color: #B22222 !important;  /* Brick/Cherry red color */
+        background-color: #6F8FAF !important;  /* Denim blue color */
         color: white;
         border-radius: 6px;
         padding: 0.5rem 2rem;
         font-weight: 700;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 4px rgba(178, 34, 34, 0.3);
+        box-shadow: 0 2px 4px rgba(111, 143, 175, 0.3);
     }
     .stButton>button:hover {
-        background-color: #8B0000 !important;  /* Darker cherry red for hover */
+        background-color: #5A7A9A !important;  /* Darker denim for hover */
         transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(178, 34, 34, 0.4);
+        box-shadow: 0 4px 8px rgba(111, 143, 175, 0.4);
     }
     .expense-form-label {
-        color: #800000 !important;
+        color: #6F8FAF !important;
         font-weight: 700 !important;
     }
     .expense-form {
@@ -198,12 +191,13 @@ st.markdown("""
         margin-bottom: 1rem;
     }
     .balance-positive {
-        color: #059669;
-        font-weight: bold;
+        color: #6F8FAF !important;
     }
     .balance-negative {
-        color: #dc2626;
-        font-weight: bold;
+        color: #B22222 !important;
+    }
+    .balance-zero {
+        color: #666 !important;
     }
     .welcome-text {
         position: absolute;
@@ -485,170 +479,7 @@ if is_logged_in:
         # Analytics section
         expenses = get_expenses(username)
         if not expenses.empty:
-            # Convert Date column to datetime
-            expenses['Date'] = pd.to_datetime(expenses['Date'])
-            
-            # Calculate metrics
-            total_spent = expenses['Amount'].sum()
-            current_month = datetime.date.today().month
-            current_year = datetime.date.today().year
-            last_month = current_month - 1 if current_month > 1 else 12
-            last_month_year = current_year if current_month > 1 else current_year - 1
-            
-            this_month_expenses = expenses[(expenses['Date'].dt.month == current_month) & 
-                                        (expenses['Date'].dt.year == current_year)]
-            last_month_expenses = expenses[(expenses['Date'].dt.month == last_month) & 
-                                        (expenses['Date'].dt.year == last_month_year)]
-            top_category = expenses['Category'].mode()[0]
-            top_category_amount = expenses[expenses['Category'] == top_category]['Amount'].sum()
-            
-            # Create four columns for metrics
-            col1, col2, col3, col4 = st.columns(4)
-
-            with col1:
-                st.markdown(f"""
-                    <div class="metric-box">
-                        <div class="metric-title">💰 TOTAL SPENT</div>
-                        <div class="metric-value">₹{total_spent:.2f}</div>
-                        <div class="metric-subtitle">All Time</div>
-                    </div>
-                """, unsafe_allow_html=True)
-                with st.expander("📊 View Details", expanded=False):
-                    st.write("### Total Expenses Details")
-                    for _, expense in expenses.iterrows():
-                        st.markdown(f"""
-                            <div class="expense-details">
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Date:</span> {expense['Date'].strftime('%Y-%m-%d')}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Amount:</span> ₹{expense['Amount']:.2f}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Category:</span> {expense['Category']}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Location:</span> {expense.get('Location', '')}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Description:</span> {expense['Description']}
-                                </div>
-                            </div>
-                        """, unsafe_allow_html=True)
-
-            with col2:
-                st.markdown(f"""
-                    <div class="metric-box">
-                        <div class="metric-title">📅 THIS MONTH</div>
-                        <div class="metric-value">₹{this_month_expenses['Amount'].sum():.2f}</div>
-                        <div class="metric-subtitle">Expenses</div>
-                    </div>
-                """, unsafe_allow_html=True)
-                with st.expander("📊 View Details", expanded=False):
-                    st.write("### This Month's Expenses")
-                    for _, expense in this_month_expenses.iterrows():
-                        st.markdown(f"""
-                            <div class="expense-details">
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Date:</span> {expense['Date'].strftime('%Y-%m-%d')}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Amount:</span> ₹{expense['Amount']:.2f}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Category:</span> {expense['Category']}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Location:</span> {expense.get('Location', '')}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Description:</span> {expense['Description']}
-                                </div>
-                            </div>
-                        """, unsafe_allow_html=True)
-
-            with col3:
-                st.markdown(f"""
-                    <div class="metric-box">
-                        <div class="metric-title">📅 LAST MONTH</div>
-                        <div class="metric-value">₹{last_month_expenses['Amount'].sum():.2f}</div>
-                        <div class="metric-subtitle">Expenses</div>
-                    </div>
-                """, unsafe_allow_html=True)
-                with st.expander("📊 View Details", expanded=False):
-                    st.write("### Last Month's Expenses")
-                    for _, expense in last_month_expenses.iterrows():
-                        st.markdown(f"""
-                            <div class="expense-details">
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Date:</span> {expense['Date'].strftime('%Y-%m-%d')}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Amount:</span> ₹{expense['Amount']:.2f}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Category:</span> {expense['Category']}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Location:</span> {expense.get('Location', '')}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Description:</span> {expense['Description']}
-                                </div>
-                            </div>
-                        """, unsafe_allow_html=True)
-
-            with col4:
-                st.markdown(f"""
-                    <div class="metric-box">
-                        <div class="metric-title">🏆 TOP CATEGORY</div>
-                        <div class="metric-value">{top_category}</div>
-                        <div class="metric-subtitle">₹{top_category_amount:.2f}</div>
-                    </div>
-                """, unsafe_allow_html=True)
-                with st.expander("📊 View Details", expanded=False):
-                    st.write("### Top Category Expenses")
-                    top_category_expenses = expenses[expenses['Category'] == top_category]
-                    for _, expense in top_category_expenses.iterrows():
-                        st.markdown(f"""
-                            <div class="expense-details">
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Date:</span> {expense['Date'].strftime('%Y-%m-%d')}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Amount:</span> ₹{expense['Amount']:.2f}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Category:</span> {expense['Category']}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Location:</span> {expense.get('Location', '')}
-                                </div>
-                                <div class="expense-detail-item">
-                                    <span class="expense-detail-label">Description:</span> {expense['Description']}
-                                </div>
-                            </div>
-                        """, unsafe_allow_html=True)
-
-            # Single distribution graph for all expenses
-            st.markdown('<div class="distribution-graph">', unsafe_allow_html=True)
-            fig = px.pie(expenses, values='Amount', names='Category', 
-                        title='Overall Expense Distribution',
-                        color_discrete_sequence=['#800020', '#355E3B', '#1C39BB', '#CD7F32', '#808080', '#FF0000', '#006B54', '#8E4585', '#9400D3', '#9932CC'])  # Added more violet colors
-            st.plotly_chart(fig, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            # Expense Table in expander
-            with st.expander("📋 View Expenses", expanded=False):
-                st.markdown('<div class="expense-table">', unsafe_allow_html=True)
-                # Display the table without serial numbers and search
-                st.dataframe(
-                    expenses[['Date', 'Amount', 'Category', 'Description']],
-                    hide_index=True,
-                    use_container_width=True,
-                    height=400
-                )
-                st.markdown('</div>', unsafe_allow_html=True)
+            render_dashboard(expenses)
 
     else:  # Group expense view
         if st.session_state.current_group:
